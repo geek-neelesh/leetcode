@@ -9,17 +9,15 @@ class Solution{
     int maxDistance(int arr[], int n)
     {
       unordered_map<int,int>OccurenceMap;
-      int maxSoFar=-1;
+      int maxSoFar=0;
       for(int i=0;i<n;i++){
           int firstNumber=arr[i];
-          int distance=0;
           if(OccurenceMap.find(firstNumber)!=OccurenceMap.end()){
-               distance=i-OccurenceMap[firstNumber];
+               maxSoFar=max(maxSoFar,i-OccurenceMap[firstNumber]);
           }
           else{
               OccurenceMap[firstNumber]=i;
           }
-          maxSoFar=maxSoFar>distance?maxSoFar:distance;
       }
       return maxSoFar;
     
