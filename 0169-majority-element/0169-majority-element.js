@@ -4,16 +4,23 @@
  */
 var majorityElement = function(nums) {
     const len = nums.length;
+    if(len == 1){
+        return nums[0];
+    }
+    const freqMap = new Map();
     for(let i=0;i<len;i++){
-        let count = 0;
-        for(let j=0;j<len;j++){
-            if(nums[i]==nums[j]){
-                count++;
+        if(freqMap.has(nums[i])){
+            let freq = freqMap.get(nums[i]);
+            freqMap.set(nums[i],++freq);
+            if(freq>len/2){
+                return nums[i];
             }
+
+        }else{
+            freqMap.set(nums[i],1);
         }
-        if(count>len/2){
-            return nums[i];
-        }
+
+
     }
     return -1;
     
