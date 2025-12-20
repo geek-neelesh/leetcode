@@ -1,17 +1,32 @@
 var productExceptSelf = function(nums) {
-    let n = nums.length;
-    let result = new Array(n);
-    let prefix =1;
-    for(let i=0;i<n;i++){
-        result[i] = prefix;
-        prefix *= nums[i];
-
+    let length = nums.length;
+    let totalProduct = 1;
+    let zeroCount = 0;
+    
+    for (let num of nums) {
+        if (num !== 0) {
+            totalProduct *= num;
+        } else {
+            zeroCount++;
+        }
     }
 
-    let suffix = 1;
-    for(i=n-1;i>=0;i--){
-        result[i]*=suffix;
-        suffix*=nums[i];
+    let result = new Array(length).fill(0);
+    
+    for (let i = 0; i < length; i++) {
+        if (nums[i] === 0) {
+            if (zeroCount > 1) {
+                result[i] = 0;
+            } else {
+                result[i] = totalProduct; 
+            }
+        } else {
+            if (zeroCount > 0) {
+                result[i] = 0; 
+            } else {
+                result[i] = totalProduct / nums[i]; // Normal division
+            }
+        }
     }
     
     return result;
